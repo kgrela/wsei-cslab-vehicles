@@ -32,10 +32,12 @@
   <ItemGroup>
     <Compile Include="Air.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="EngineVehicle.cs" />
     <Compile Include="Environments.cs" />
     <Compile Include="Fuels.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="Units.cs" />
+    <Compile Include="Vehicle.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
