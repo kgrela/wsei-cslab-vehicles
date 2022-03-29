@@ -45,14 +45,14 @@ namespace vehicles
         // ---------------------------------------------------------------------------------------------------------------------------- //
 
 
-        internal void StopMoving(ref Vehicle.State state, Environments currentEnvironment, ref double currentSpeed, string vehicle)
+        internal void StopMoving(ref Vehicle.State state, Environments currentEnv, ref double currentSpeed, string vehicle)
         {
             if (state == Vehicle.State.Staying)
             {
                 Console.WriteLine($"{vehicle} isn't moving right now");
                 return;
             }
-            if (state == Vehicle.State.Moving && currentEnvironment == Environments.Ground || currentEnvironment == Environments.Water)
+            if (state == Vehicle.State.Moving && currentEnv == Environments.Ground || currentEnv == Environments.Water)
             {
                 currentSpeed = 0;
                 state = Vehicle.State.Staying;
@@ -64,7 +64,7 @@ namespace vehicles
 
         // ---------------------------------------------------------------------------------------------------------------------------- //
 
-        internal void TryToAccelerate(Environments currentEnvironment, ref Vehicle.State state, ref double currentSpeed, double targetSpeed, string vehicle)
+        internal void TryToAccelerate(Environments currentEnv, ref Vehicle.State state, ref double currentSpeed, double targetSpeed, string vehicle)
         {
             if (currentSpeed == targetSpeed)
             {
@@ -78,14 +78,14 @@ namespace vehicles
             }
             if (targetSpeed < currentSpeed || targetSpeed == 0)
             {
-                TryToSlowDown(currentEnvironment, ref state, ref currentSpeed, targetSpeed, vehicle);
+                TryToSlowDown(currentEnv, ref state, ref currentSpeed, targetSpeed, vehicle);
                 return;
             }
             double min = 0;
             double max = 0;
             Units? temp = null;
             state = Vehicle.State.Moving;
-            switch (currentEnvironment)
+            switch (currentEnv)
             {
                 case Environments.Ground:
                     min = Ground.MinSpeed;
@@ -123,12 +123,12 @@ namespace vehicles
             }
             if (currentSpeed == 0)
                 state = Vehicle.State.Staying;
-            Console.WriteLine($"{targetSpeed}{temp} is out of range for {currentEnvironment} environment, type speed in range {min}-{max}{temp} for {vehicle}");
+            Console.WriteLine($"{targetSpeed}{temp} is out of range for {currentEnv} environment, type speed in range {min}-{max}{temp} for {vehicle}");
         }
 
         // ---------------------------------------------------------------------------------------------------------------------------- //
 
-        internal void TryToSlowDown(Environments currentEnvironment, ref Vehicle.State state, ref double currentSpeed, double targetSpeed, string vehicle)
+        internal void TryToSlowDown(Environments currentEnv, ref Vehicle.State state, ref double currentSpeed, double targetSpeed, string vehicle)
         {
             if (currentSpeed == targetSpeed)
             {
@@ -142,17 +142,17 @@ namespace vehicles
             }
             if (targetSpeed > currentSpeed)
             {
-                TryToAccelerate(currentEnvironment, ref state, ref currentSpeed, targetSpeed, vehicle);
+                TryToAccelerate(currentEnv, ref state, ref currentSpeed, targetSpeed, vehicle);
                 return;
             }
             if (targetSpeed == 0)
             {
-                StopMoving(ref state, currentEnvironment, ref currentSpeed, vehicle);
+                StopMoving(ref state, currentEnv, ref currentSpeed, vehicle);
                 return;
             }
             double min = 0;
             double max = 0;
-            switch (currentEnvironment)
+            switch (currentEnv)
             {
                 case Environments.Ground:
                     min = Ground.MinSpeed;
@@ -185,17 +185,17 @@ namespace vehicles
                     }
                     break;
             }
-            Console.Write($"{targetSpeed} is out of range for {currentEnvironment} environment, type speed in range {min}-{max} for {vehicle}");
+            Console.Write($"{targetSpeed} is out of range for {currentEnv} environment, type speed in range {min}-{max} for {vehicle}");
         }
 
         // ---------------------------------------------------------------------------------------------------------------------------- //
 
-        internal void TryToDrive(ref Environments currentEnvironment, Vehicle.State state, ref double currentSpeed, string vehicle)
+        internal void TryToDrive(ref Environments currentEnv, Vehicle.State state, ref double currentSpeed, string vehicle)
         {
-            if (!ValidatingConditions(Ground, state, Environments.Ground, currentEnvironment, vehicle))
+            if (!ValidatingConditions(Ground, state, Environments.Ground, currentEnv, vehicle))
                 return;
             double convertedSpeed = 0;
-            if (currentEnvironment == Environments.Air)
+            if (currentEnv == Environments.Air)
             {
                 if (currentSpeed != Air.MinSpeed)
                 {
@@ -205,23 +205,23 @@ namespace vehicles
                 convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.MpS, Units.KMpH);
                 Console.WriteLine($"Succesfully landed on ground, your actual speed is {convertedSpeed}{Ground.SpeedUnit}");
             }
-            if (currentEnvironment == Environments.Water)
+            if (currentEnv == Environments.Water)
             {
                 convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.Knots, Units.KMpH);
                 Console.WriteLine($"Succesfully left water and started to drive, your actual speed is {convertedSpeed}{Ground.SpeedUnit}");
             }
             currentSpeed = convertedSpeed;
-            currentEnvironment = Environments.Ground;
+            currentEnv = Environments.Ground;
         }
 
         // ---------------------------------------------------------------------------------------------------------------------------- //
 
-        internal void TryToSail(ref Environments currentEnvironment, Vehicle.State state, ref double currentSpeed, string vehicle)
+        internal void TryToSail(ref Environments currentEnv, Vehicle.State state, ref double currentSpeed, string vehicle)
         {
-            if (!ValidatingConditions(Water, state, Environments.Water, currentEnvironment, vehicle))
+            if (!ValidatingConditions(Water, state, Environments.Water, currentEnv, vehicle))
                 return;
             double convertedSpeed = 0;
-            if (currentEnvironment == Environments.Air)
+            if (currentEnv == Environments.Air)
             {
                 if (currentSpeed != Air.MinSpeed)
                 {
@@ -231,7 +231,7 @@ namespace vehicles
                 convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.MpS, Units.Knots);
                 Console.WriteLine($"Succesfully landed on water, your actual speed is {convertedSpeed}{Water.SpeedUnit}");
             }
-            if (currentEnvironment == Environments.Ground)
+            if (currentEnv == Environments.Ground)
             {
                 convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.KMpH, Units.Knots);
                 if (convertedSpeed > Water.MaxSpeed)
@@ -247,17 +247,17 @@ namespace vehicles
                 Console.WriteLine($"Succesfully started to sail, your actual speed is {convertedSpeed}{Units.Knots}");
             }
             currentSpeed = convertedSpeed;
-            currentEnvironment = Environments.Water;
+            currentEnv = Environments.Water;
         }
 
         // ---------------------------------------------------------------------------------------------------------------------------- //
 
-        internal void TryToFly(ref Environments currentEnvironment, Vehicle.State state, ref double currentSpeed, string vehicle)
+        internal void TryToFly(ref Environments currentEnv, Vehicle.State state, ref double currentSpeed, string vehicle)
         {
-            if (!ValidatingConditions(Air, state, Environments.Air, currentEnvironment, vehicle))
+            if (!ValidatingConditions(Air, state, Environments.Air, currentEnv, vehicle))
                 return;
             double convertedSpeed = 0;
-            if (currentEnvironment == Environments.Ground)
+            if (currentEnv == Environments.Ground)
             {
                 convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.KMpH, Units.MpS);
                 if (convertedSpeed < Air.MinSpeed)
@@ -266,7 +266,7 @@ namespace vehicles
                     return;
                 }
             }
-            if (currentEnvironment == Environments.Water)
+            if (currentEnv == Environments.Water)
             {
                 convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.Knots, Units.MpS);
                 if (convertedSpeed < Air.MinSpeed)
@@ -277,7 +277,7 @@ namespace vehicles
             }
             Console.WriteLine($"Succefully started to fly. Your actual speed is {convertedSpeed}{Air.SpeedUnit}");
             currentSpeed = convertedSpeed;
-            currentEnvironment = Environments.Air;
+            currentEnv = Environments.Air;
         }
 
         // ---------------------------------------------------------------------------------------------------------------------------- //
@@ -285,7 +285,7 @@ namespace vehicles
         private void NotMovingVehicleMsg(string vehicle) => Console.WriteLine($"{vehicle} is not moving.");
         private bool IsAlreadyInProperEnvironment(Environments target, Environments actual) => target == actual ? true : false;
         private bool IsVehicleStaying(Vehicle.State actual) => actual == Vehicle.State.Staying ? true : false;
-        private bool ValidatingConditions(object module, Vehicle.State state, Environments targetEnvironment, Environments currentEnvironment, string vehicle)
+        private bool ValidatingConditions(object module, Vehicle.State state, Environments targetEnvironment, Environments currentEnv, string vehicle)
         {
             if (module == null)
             {
@@ -297,7 +297,7 @@ namespace vehicles
                 NotMovingVehicleMsg(vehicle);
                 return false;
             }
-            if (IsAlreadyInProperEnvironment(targetEnvironment, currentEnvironment))
+            if (IsAlreadyInProperEnvironment(targetEnvironment, currentEnv))
             {
                 Console.WriteLine($"{vehicle} is already in target environment.");
                 return false;
