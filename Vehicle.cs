@@ -12,8 +12,8 @@ namespace vehicles
 
         protected double MovingSpeed;
         protected State _state = State.Staying;
-        protected Environments ActualEnvironment;
-        public Environments actualEnv => ActualEnvironment;
+        protected Environments currentEnv;
+        public Environments actualEnv => currentEnv;
         public double ActualSpeed => MovingSpeed;
         public Units actualUnit
         {
@@ -32,7 +32,7 @@ namespace vehicles
                 }
             }
         }
-        protected List<Environments> AvailableEnvironments = new List<Environments>();
+        protected List<Environments> availableEnv = new List<Environments>();
         public static double UnitConverter(double speed, Units from, Units to)
         {
             double val = 0;
@@ -66,7 +66,7 @@ namespace vehicles
             int min = 0;
             int max = 0;
             Units? unit = null;
-            switch (ActualEnvironment)
+            switch (currentEnv)
             {
                 case Environments.Ground:
                     min = Ground.MinSpeed;
@@ -84,8 +84,8 @@ namespace vehicles
                     unit = Units.Knots;
                     break;
             }
-            string temp = string.Join(", ", AvailableEnvironments);
-            return $"\nActual enviroment: {ActualEnvironment}\nActual state: {_state}\nActual speed: {MovingSpeed}{unit}\nAvailable environemnts: {temp}\nSpeed range avaiable in actual environment: {min}-{max}{unit}\n";
+            string temp = string.Join(", ", availableEnv);
+            return $"\nActual enviroment: {currentEnv}\nActual state: {_state}\nActual speed: {MovingSpeed}{unit}\nAvailable environemnts: {temp}\nSpeed range avaiable in actual environment: {min}-{max}{unit}\n";
         }
     }
 }
