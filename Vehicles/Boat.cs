@@ -24,7 +24,7 @@ namespace vehicles
 
         public void Accelerate(double targetSpeed)
         {
-            m.TryToAccelerate(currentEnv, ref _state, ref MovingSpeed, targetSpeed, Name);
+            m.TryToAccelerate(currentEnv, ref s, ref MovingSpeed, targetSpeed, Name);
         }
 
         public void LeaveWater()
@@ -39,12 +39,12 @@ namespace vehicles
 
         public void SlowDown(double targetSpeed)
         {
-            m.TryToSlowDown(currentEnv, ref _state, ref MovingSpeed, targetSpeed, Name);
+            m.TryToSlowDown(currentEnv, ref s, ref MovingSpeed, targetSpeed, Name);
         }
 
         public void StopVehicle()
         {
-            m.StopMoving(ref _state, currentEnv, ref MovingSpeed, Name);
+            m.StopMoving(ref s, currentEnv, ref MovingSpeed, Name);
         }
 
         public override string ToString()

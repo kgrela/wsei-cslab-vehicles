@@ -11,7 +11,7 @@ namespace vehicles
         public enum State { Moving, Staying }
 
         protected double MovingSpeed;
-        protected State _state = State.Staying;
+        protected State s = State.Staying;
         protected Environments currentEnvironment;
         public Environments currentEnv => currentEnvironment;
         public double currentSpeed => MovingSpeed;
@@ -85,7 +85,7 @@ namespace vehicles
                     break;
             }
             string temp = string.Join(", ", availableEnv);
-            return $"\nCurrent enviroment: {currentEnv}\nCurrent state: {_state}\nCurrent speed: {MovingSpeed}{unit}\nAvailable environemnts: {temp}\nSpeed range avaiable in Current environment: {min}-{max}{unit}\n";
+            return $"- env: {currentEnv}, state: {s}, speed: {MovingSpeed}{unit}, available envs: {temp}, speed range in current env: {min} - {max} {unit}";
         }
     }
 }

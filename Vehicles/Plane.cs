@@ -23,27 +23,27 @@ namespace vehicles
 
         public void Accelerate(double targetSpeed)
         {
-            m.TryToAccelerate(currentEnv, ref _state, ref MovingSpeed, targetSpeed, Name);
+            m.TryToAccelerate(currentEnv, ref s, ref MovingSpeed, targetSpeed, Name);
         }
 
         public void SlowDown(double targetSpeed)
         {
-            m.TryToSlowDown(currentEnv, ref _state, ref MovingSpeed, targetSpeed, Name);
+            m.TryToSlowDown(currentEnv, ref s, ref MovingSpeed, targetSpeed, Name);
         }
 
         public void Fly()
         {
-            m.TryToFly(ref currentEnvironment, _state, ref MovingSpeed, Name);
+            m.TryToFly(ref currentEnvironment, s, ref MovingSpeed, Name);
         }
 
         public void Land()
         {
-            m.TryToDrive(ref currentEnvironment, _state, ref MovingSpeed, Name);
+            m.TryToDrive(ref currentEnvironment, s, ref MovingSpeed, Name);
         }
 
         public void StopVehicle()
         {
-            m.StopMoving(ref _state, currentEnv, ref MovingSpeed, Name);
+            m.StopMoving(ref s, currentEnv, ref MovingSpeed, Name);
         }
 
         public override string ToString()
