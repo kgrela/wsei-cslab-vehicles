@@ -33,12 +33,12 @@ namespace vehicles
 
         public void Fly()
         {
-            m.TryToFly(ref currentEnv, _state, ref MovingSpeed, Name);
+            m.TryToFly(ref currentEnvironment, _state, ref MovingSpeed, Name);
         }
 
         public void Land()
         {
-            m.TryToDrive(ref currentEnv, _state, ref MovingSpeed, Name);
+            m.TryToDrive(ref currentEnvironment, _state, ref MovingSpeed, Name);
         }
 
         public void StopVehicle()

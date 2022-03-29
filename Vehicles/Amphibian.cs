@@ -37,12 +37,12 @@ namespace vehicles
 
         public void LeaveWater()
         {
-            m.TryToDrive(ref currentEnv, _state, ref MovingSpeed, Name);
+            m.TryToDrive(ref currentEnvironment, _state, ref MovingSpeed, Name);
         }
 
         public void Sail()
         {
-            m.TryToSail(ref currentEnv, _state, ref MovingSpeed, Name);
+            m.TryToSail(ref currentEnvironment, _state, ref MovingSpeed, Name);
         }
 
         public void StopVehicle()

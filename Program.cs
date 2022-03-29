@@ -42,6 +42,21 @@ namespace vehicles
 
             foreach (var i in vehicle) Console.WriteLine(i);
 
+            // ---------------------------------------------------------------------------------------------------------------------------- //
+
+            var ground = vehicle.Where(veh => veh.currentEnv == Environments.Ground);
+            foreach (var i in ground) Console.WriteLine(i);
+
+            // ---------------------------------------------------------------------------------------------------------------------------- //
+
+            var sortBySpeed = vehicle.OrderBy(veh => Vehicle.ChangeUnit(veh.currentSpeed, veh.currentUnit, Units.KMpH));
+            foreach (var i in sortBySpeed) Console.WriteLine(i);
+
+            // ---------------------------------------------------------------------------------------------------------------------------- //
+
+            var sortGroundVehiclesBySpeed = vehicle.Where(veh => veh.currentEnv == Environments.Ground).OrderByDescending(veh => Vehicle.ChangeUnit(veh.currentSpeed, veh.currentUnit, Units.KMpH));
+            foreach (var i in sortGroundVehiclesBySpeed) Console.WriteLine(i);
+
         }
     }
 }

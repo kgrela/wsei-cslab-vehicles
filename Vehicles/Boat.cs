@@ -16,7 +16,7 @@ namespace vehicles
 
         public Boat(int horsePower, int buoyancy) : base(horsePower, FuelType.Diesel)
         {
-            currentEnv = Environments.Water;
+            currentEnvironment = Environments.Water;
             availableEnv.Add(Environments.Water);
             b = buoyancy;
             m = new Move(buoyancy, true);

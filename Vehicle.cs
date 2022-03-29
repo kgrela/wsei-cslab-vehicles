@@ -12,14 +12,14 @@ namespace vehicles
 
         protected double MovingSpeed;
         protected State _state = State.Staying;
-        protected Environments currentEnv;
-        public Environments actualEnv => currentEnv;
-        public double ActualSpeed => MovingSpeed;
-        public Units actualUnit
+        protected Environments currentEnvironment;
+        public Environments currentEnv => currentEnvironment;
+        public double currentSpeed => MovingSpeed;
+        public Units currentUnit
         {
             get
             {
-                switch (actualEnv)
+                switch (currentEnv)
                 {
                     case Environments.Air:
                         return Units.MpS;

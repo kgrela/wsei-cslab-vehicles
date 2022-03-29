@@ -7,6 +7,6 @@ namespace vehicles.Interfaces
         void Accelerate(double targetSpeed);
         void SlowDown(double targetSpeed);
         string Name { get; }
-        Environments actualEnv { get; }
+        Environments currentEnv { get; }
     }
 }
