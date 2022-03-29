@@ -52,7 +52,7 @@ namespace vehicles
 
         public override string ToString()
         {
-            return $"{Name}" + base.ToString() + $"\nWheels: {Wheels}\nBuoyancy: {Buoyancy}\n";
+            return $"{Name}" + base.ToString() + $" wheels: {Wheels} buoyancy: {Buoyancy}";
         }
     }
 }

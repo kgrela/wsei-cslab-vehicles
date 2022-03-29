@@ -49,7 +49,7 @@ namespace vehicles
 
         public override string ToString()
         {
-            return $"{Name}" + base.ToString() + $"\nBuoyancy: {Buoyancy}\n";
+            return $"{Name}" + base.ToString() + $" buoyancy: {Buoyancy}";
         }
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="Vehicles\Boat.cs" />
     <Compile Include="Vehicles\Plane.cs" />
     <Compile Include="Vehicles\Amphibian.cs" />
+    <Compile Include="Vehicles\Bicycle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
