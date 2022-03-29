@@ -8,8 +8,17 @@ namespace vehicles
 {
     public class Water
     {
+        readonly int b;
+
         public static int MaxSpeed = 40;
         public static int MinSpeed = 0;
         public static Units SpeedUnit = Units.Knots;
+
+        internal Water(int buoyancy)
+        {
+            b = buoyancy;
+        }
+
+        public int Buoyancy => b;
     }
 }

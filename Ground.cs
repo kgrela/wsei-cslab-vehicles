@@ -8,8 +8,17 @@ namespace vehicles
 {
     public class Ground
     {
+        readonly int w;
+
         public static int MinSpeed = 0;
         public static int MaxSpeed = 350;
         public static Units SpeedUnit = Units.KMpH;
+
+        internal Ground(int wheelsCount)
+        {
+            w = wheelsCount;
+        }
+
+        public int WheelsCount => w;
     }
 }
