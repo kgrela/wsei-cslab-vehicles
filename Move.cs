@@ -199,16 +199,16 @@ namespace vehicles
             {
                 if (currentSpeed != Air.MinSpeed)
                 {
-                    Console.WriteLine($"Air vehicles can land only at minimum speed {Air.MinSpeed}{Air.SpeedUnit}, your actual speed is {currentSpeed}{Air.SpeedUnit}, slow down first before landing.");
+                    Console.WriteLine($"Air vehicles can land only at minimum speed {Air.MinSpeed}{Air.SpeedUnit}, your Current speed is {currentSpeed}{Air.SpeedUnit}, slow down first before landing.");
                     return;
                 }
-                convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.MpS, Units.KMpH);
-                Console.WriteLine($"Succesfully landed on ground, your actual speed is {convertedSpeed}{Ground.SpeedUnit}");
+                convertedSpeed = Vehicle.ChangeUnit(currentSpeed, Units.MpS, Units.KMpH);
+                Console.WriteLine($"Succesfully landed on ground, your Current speed is {convertedSpeed}{Ground.SpeedUnit}");
             }
             if (currentEnv == Environments.Water)
             {
-                convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.Knots, Units.KMpH);
-                Console.WriteLine($"Succesfully left water and started to drive, your actual speed is {convertedSpeed}{Ground.SpeedUnit}");
+                convertedSpeed = Vehicle.ChangeUnit(currentSpeed, Units.Knots, Units.KMpH);
+                Console.WriteLine($"Succesfully left water and started to drive, your Current speed is {convertedSpeed}{Ground.SpeedUnit}");
             }
             currentSpeed = convertedSpeed;
             currentEnv = Environments.Ground;
@@ -225,26 +225,26 @@ namespace vehicles
             {
                 if (currentSpeed != Air.MinSpeed)
                 {
-                    Console.WriteLine($"Air vehicles can land only at minimum speed {Air.MinSpeed}{Air.SpeedUnit}, your actual speed is {currentSpeed}{Air.SpeedUnit}, slow down first before landing.");
+                    Console.WriteLine($"Air vehicles can land only at minimum speed {Air.MinSpeed}{Air.SpeedUnit}, your Current speed is {currentSpeed}{Air.SpeedUnit}, slow down first before landing.");
                     return;
                 }
-                convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.MpS, Units.Knots);
-                Console.WriteLine($"Succesfully landed on water, your actual speed is {convertedSpeed}{Water.SpeedUnit}");
+                convertedSpeed = Vehicle.ChangeUnit(currentSpeed, Units.MpS, Units.Knots);
+                Console.WriteLine($"Succesfully landed on water, your Current speed is {convertedSpeed}{Water.SpeedUnit}");
             }
             if (currentEnv == Environments.Ground)
             {
-                convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.KMpH, Units.Knots);
+                convertedSpeed = Vehicle.ChangeUnit(currentSpeed, Units.KMpH, Units.Knots);
                 if (convertedSpeed > Water.MaxSpeed)
                 {
-                    Console.WriteLine($"Your actual speed {currentSpeed}{Ground.SpeedUnit} = {convertedSpeed}{Water.SpeedUnit} is too fast to sail, slow down at least to {Water.MaxSpeed}{Water.SpeedUnit}");
+                    Console.WriteLine($"Your Current speed {currentSpeed}{Ground.SpeedUnit} = {convertedSpeed}{Water.SpeedUnit} is too fast to sail, slow down at least to {Water.MaxSpeed}{Water.SpeedUnit}");
                     return;
                 }
                 if (convertedSpeed < Water.MinSpeed)
                 {
-                    Console.WriteLine($"Your actual speed {currentSpeed}{Ground.SpeedUnit} = {convertedSpeed}{Water.SpeedUnit} is too slow to sail, speed up at least to {Water.MinSpeed}{Water.SpeedUnit}");
+                    Console.WriteLine($"Your Current speed {currentSpeed}{Ground.SpeedUnit} = {convertedSpeed}{Water.SpeedUnit} is too slow to sail, speed up at least to {Water.MinSpeed}{Water.SpeedUnit}");
                     return;
                 }
-                Console.WriteLine($"Succesfully started to sail, your actual speed is {convertedSpeed}{Units.Knots}");
+                Console.WriteLine($"Succesfully started to sail, your Current speed is {convertedSpeed}{Units.Knots}");
             }
             currentSpeed = convertedSpeed;
             currentEnv = Environments.Water;
@@ -259,23 +259,23 @@ namespace vehicles
             double convertedSpeed = 0;
             if (currentEnv == Environments.Ground)
             {
-                convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.KMpH, Units.MpS);
+                convertedSpeed = Vehicle.ChangeUnit(currentSpeed, Units.KMpH, Units.MpS);
                 if (convertedSpeed < Air.MinSpeed)
                 {
-                    Console.WriteLine($"Your actual speed is {currentSpeed}{Ground.SpeedUnit} = {convertedSpeed}{Air.SpeedUnit}. Minimum speed required to get off ground is {Air.MinSpeed}{Air.SpeedUnit}. Speed up!");
+                    Console.WriteLine($"Your Current speed is {currentSpeed}{Ground.SpeedUnit} = {convertedSpeed}{Air.SpeedUnit}. Minimum speed required to get off ground is {Air.MinSpeed}{Air.SpeedUnit}. Speed up!");
                     return;
                 }
             }
             if (currentEnv == Environments.Water)
             {
-                convertedSpeed = Vehicle.UnitConverter(currentSpeed, Units.Knots, Units.MpS);
+                convertedSpeed = Vehicle.ChangeUnit(currentSpeed, Units.Knots, Units.MpS);
                 if (convertedSpeed < Air.MinSpeed)
                 {
-                    Console.WriteLine($"Your actual speed is {currentSpeed}{Water.SpeedUnit} = {convertedSpeed}{Air.SpeedUnit}. Minimum speed required to get off water is {Air.MinSpeed}{Air.SpeedUnit}. Speed up!");
+                    Console.WriteLine($"Your Current speed is {currentSpeed}{Water.SpeedUnit} = {convertedSpeed}{Air.SpeedUnit}. Minimum speed required to get off water is {Air.MinSpeed}{Air.SpeedUnit}. Speed up!");
                     return;
                 }
             }
-            Console.WriteLine($"Succefully started to fly. Your actual speed is {convertedSpeed}{Air.SpeedUnit}");
+            Console.WriteLine($"Succefully started to fly. Your Current speed is {convertedSpeed}{Air.SpeedUnit}");
             currentSpeed = convertedSpeed;
             currentEnv = Environments.Air;
         }
@@ -283,8 +283,8 @@ namespace vehicles
         // ---------------------------------------------------------------------------------------------------------------------------- //
 
         private void NotMovingVehicleMsg(string vehicle) => Console.WriteLine($"{vehicle} is not moving.");
-        private bool IsAlreadyInProperEnvironment(Environments target, Environments actual) => target == actual ? true : false;
-        private bool IsVehicleStaying(Vehicle.State actual) => actual == Vehicle.State.Staying ? true : false;
+        private bool IsAlreadyInProperEnvironment(Environments target, Environments current) => target == current ? true : false;
+        private bool IsVehicleStaying(Vehicle.State current) => current == Vehicle.State.Staying ? true : false;
         private bool ValidatingConditions(object module, Vehicle.State state, Environments targetEnvironment, Environments currentEnv, string vehicle)
         {
             if (module == null)

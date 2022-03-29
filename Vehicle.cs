@@ -33,7 +33,7 @@ namespace vehicles
             }
         }
         protected List<Environments> availableEnv = new List<Environments>();
-        public static double UnitConverter(double speed, Units from, Units to)
+        public static double ChangeUnit(double speed, Units from, Units to)
         {
             double val = 0;
             if (from == to)
@@ -85,7 +85,7 @@ namespace vehicles
                     break;
             }
             string temp = string.Join(", ", availableEnv);
-            return $"\nActual enviroment: {currentEnv}\nActual state: {_state}\nActual speed: {MovingSpeed}{unit}\nAvailable environemnts: {temp}\nSpeed range avaiable in actual environment: {min}-{max}{unit}\n";
+            return $"\nCurrent enviroment: {currentEnv}\nCurrent state: {_state}\nCurrent speed: {MovingSpeed}{unit}\nAvailable environemnts: {temp}\nSpeed range avaiable in Current environment: {min}-{max}{unit}\n";
         }
     }
 }
