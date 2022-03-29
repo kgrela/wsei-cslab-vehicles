@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IWaterLandable.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="Vehicles\Boat.cs" />
+    <Compile Include="Vehicles\Plane.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
